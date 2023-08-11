@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Estudos
+## API, useEffect
+Tudo se faz possível graças ao "fetch" e o arquivo "db.json" que simula um banco de dados (uma API para ser mais exato). Resumindo, o "fetch" pode buscar ou mandar dados para o arquivo "db.json", tudo depende do method que será passado (GET busca estes dados, enquanto o POST os envia). Em ambos os casos, além do method, é implantado o atributo headers que seria uma propriedade adicional para estes dados (no caso do projeto é indicar que os dados estão em JSON), e no caso do POST, tem também a propriedade body, que vai indicar com que corpo nós vamos enviar estes dados para a API (aqui no caso é indicado que o envio será pelo método JSON.stringify(), ou seja, transformar nossos dados em JSON antes de mandar pra API). Para o method: GET não é necessário este corpo pois nós só estamos buscando estes dados.
+
+Outro ponto interessante é sobre o useEffect. Na hora de buscar os dados, para que os mesmos aconteçam somente uma vez, é usado o useEffect (que por padrão tem que receber uma função e um array de dependências, este que no caso do vídeo está vazio). Ele somente será executado quando qualquer elemento deste array for modificado. E uma coisa interessante, sua execução é disparada a nível do componente, ou seja, diferente de uma função que é chamada pelo nome, este é chamado a cada mudança em qualquer elemento no array de dependências. Ou seja, sua execução está atrelada a nível de componente, e não por escopo de chaves. 
+
+Se no useEffect não for passado este array como segundo parâmetro, ele vai disparar toda vez que um evento acontecer em qualquer lugar dentro do componente.
+Se no mesmo o array estiver vazio (como no vídeo), ele executa apenas uma vez, exatamente na hora de carregar a página.
+E se caso tive
+
 ## Available Scripts
 
 In the project directory, you can run:
