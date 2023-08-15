@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import Message from "../layouts/Message";
 import Container from "../layouts/Container";
+import Loading from "../layouts/Loading";
 import LinkButton from '../layouts/LinkButton'
 import ProjectCard from "../projects/ProjectCard";
 
@@ -10,13 +11,15 @@ import styles from './Project.module.css';
 
 function Project() {
     const [projects, setProjects] = useState([]);
+    const [removeLoading, setRemoveLoading] = useState(false);
 
     const location = useLocation();
     let message = '';
     
     if (location.state) message = location.state.message;
-
+    
     useEffect(() => {
+        setTimeout(() => {
         fetch('http://localhost:5000/projects', {
             method: "Get",
             headers: {
@@ -24,11 +27,12 @@ function Project() {
             }
         })
         .then(res => res.json())
-        .then(data => {
-            console.log(data);
+        .then(data => {;
             setProjects(data);
+            setRemoveLoading(true);
         })
         .catch(err => console.log("Algo está errado: " + err));
+    }, 1000);
     }, []);
 
     return(
@@ -44,6 +48,10 @@ function Project() {
                 budget={project.budget}
                 category={project.category.name}
                 key={project.id} />) }
+                {!removeLoading && <Loading />}
+                {removeLoading && projects.length === 0 && (
+                    <p>Não há projetos cadastrados!</p>
+                )}
              </Container>
         </div>
     );
