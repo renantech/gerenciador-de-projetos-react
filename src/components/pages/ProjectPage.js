@@ -7,6 +7,7 @@ import Loading from '../layouts/Loading'
 import ProjectForm from '../projects/ProjectForm';
 import Message from '../layouts/Message';
 import ServiceForm from '../service/ServiceForm';
+import ServiceCard from '../service/ServiceCard';
 
 import styles from './ProjectPage.module.css';
 
@@ -14,6 +15,7 @@ function ProjectPage() {
     const { id } = useParams();
 
     const [project, setProject] = useState([]);
+    const [services, setServices] = useState([]);
     const [showProjectForm, setShowProjectForm] = useState(false);
     const [showServiceForm, setServiceForm] = useState(false);
 
@@ -30,6 +32,7 @@ function ProjectPage() {
             .then(resp => resp.json())
             .then(data => {
                 setProject(data);
+                setServices(data.services);
             })
             .catch(err => console.log(err));
     }, [id]);
@@ -85,16 +88,20 @@ function ProjectPage() {
         fetch(`http://localhost:5000/projects/${project.id}`, {
             method: "PATCH",
             headers: {
-                "Content-Type": "applicaiton/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify()
         })
-        .then(resp => resp.json())
-        .then(data => {
-            // show the services
-            console.log(data);
-        })
-        .catch(err => console.log(err));
+            .then(resp => resp.json())
+            .then(data => {
+                // show the services
+                setServiceForm(false);
+            })
+            .catch(err => console.log(err));
+
+    }
+
+    function removeService() {
 
     }
 
@@ -142,16 +149,27 @@ function ProjectPage() {
                             </button>
                             <div className={styles.project_info}>
                                 {showServiceForm && (
-                                    <ServiceForm 
-                                    handleSubmit={createService}
-                                    btnText="Adicionar serviço"
-                                    projectDate={project} />
-                                ) }
+                                    <ServiceForm
+                                        handleSubmit={createService}
+                                        btnText="Adicionar serviço"
+                                        projectDate={project} />
+                                )}
                             </div>
                         </div>
                         <h2>Serviços</h2>
                         <Container customClass="start" >
-                                <p>Items de Serviço</p>
+                            {services.length > 0 &&
+                                services.map(service => (
+                                    <ServiceCard
+                                        id={service.id}
+                                        name={service.name}
+                                        cost={service.cost}
+                                        description={service.description}
+                                        key={service.id}
+                                        handleRemove={removeService}
+                                    />
+                                ))}
+                            {services.length === 0 && <p>Não há serviços cadastrados</p>}
                         </Container>
                     </Container>
                 </div>

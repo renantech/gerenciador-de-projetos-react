@@ -1,26 +1,15 @@
 {
   "projects": [
     {
-      "name": "Meu projeto 01",
-      "budget": "2000",
+      "name": "Projeto 01",
+      "budget": "1000",
       "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
+        "id": "1",
+        "name": "Infra"
       },
       "cost": 0,
       "services": [],
-      "id": 2
-    },
-    {
-      "name": "Meu projeto 02",
-      "budget": "5000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 0,
-      "services": [],
-      "id": 3
+      "id": 1
     }
   ],
   "categories": [
