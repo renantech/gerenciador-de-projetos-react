@@ -10,6 +10,17 @@
       "cost": 0,
       "services": [],
       "id": 2
+    },
+    {
+      "name": "Meu projeto 02",
+      "budget": "5000",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 0,
+      "services": [],
+      "id": 3
     }
   ],
   "categories": [
