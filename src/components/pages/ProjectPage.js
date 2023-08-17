@@ -67,7 +67,7 @@ function ProjectPage() {
         // last service 
         const lastService = project.services[project.services.length - 1];
 
-        lastService.id = uuidv4;
+        lastService.id = project.services + 1;
 
         const lastServiceCost = lastService.cost;
         const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost);
@@ -90,7 +90,7 @@ function ProjectPage() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify()
+            body: JSON.stringify(project)
         })
             .then(resp => resp.json())
             .then(data => {
@@ -102,27 +102,30 @@ function ProjectPage() {
     }
 
     function removeService(id, cost) {
-        const servicesUpdate = project.services.filter(service => service.id !== id);
-        const projectUpdate = project;
-
-        projectUpdate.services = servicesUpdate;
-        projectUpdate.cost = parseFloat(projectUpdate.cost) - parseFloat(cost);
-
-        fetch(`http://localhost:5000/projects/${projectUpdate.id}`, {
-            method: "PACTH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(projectUpdate)
+        const servicesUpdated = project.services.filter(
+          (service) => service.id !== id,
+        )
+    
+        const projectUpdated = project
+    
+        projectUpdated.services = servicesUpdated
+        projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost)
+    
+        fetch(`http://localhost:5000/projects/${projectUpdated.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(projectUpdated),
         })
-        .then(resp => resp.json())
-        .then(data => {
-            setProject(projectUpdate);
-            setServices(servicesUpdate);
-            setMessage("Serviço removido com sucesso");
-        })
-        .catch(err => console.error(err))
-    }
+          .then((resp) => resp.json())
+          .then((data) => {
+            setProject(projectUpdated)
+            setServices(servicesUpdated)
+            setMessage('Serviço removido com sucesso!')
+          })
+      }
+    
 
     function toggleProjectForm() {
         setShowProjectForm(!showProjectForm);
