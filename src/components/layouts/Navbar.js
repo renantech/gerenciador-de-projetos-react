@@ -20,10 +20,10 @@ function Navbar() {
                         <Link to='/project' >Projetos</Link>
                     </li>
                     <li className={styles.item}>
-                        <Link to='/company' >Empresa</Link>
+                        <Link to='https://github.com/renantech' target={'_blank'} >Empresa</Link>
                     </li>
                     <li className={styles.item} >
-                        <Link to='/contact' >Contato</Link>
+                        <Link to='https://github.com/renantech' target={'_blank'} >Contato</Link>
                     </li>
                 </ul>
             </Container>
